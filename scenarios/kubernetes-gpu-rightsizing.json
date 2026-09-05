@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "id": "kubernetes-gpu-rightsizing-001",
+  "title": "Reduce inference cost without violating latency SLO",
+  "domain": "kubernetes-finops",
+  "evidence_class": "simulated",
+  "business_context": {"service": "document-inference", "monthly_gpu_cost_usd": 24000, "p95_latency_slo_ms": 800},
+  "mutation_boundary": {"allowed_actions": ["adjust_gpu_request", "adjust_replica_range", "configure_autoscaling", "run_canary"]},
+  "checks": [
+    {"id": "canary", "dimension": "reliability", "type": "contains", "target": "actions", "expected": "run_canary", "weight": 3, "message": "The proposal validates performance with a canary"},
+    {"id": "latency", "dimension": "correctness", "type": "max_value", "target": "predicted_p95_latency_ms", "expected": 800, "weight": 4, "message": "Predicted p95 latency remains within the declared SLO"},
+    {"id": "savings", "dimension": "economics", "type": "max_value", "target": "estimated_monthly_cost_delta_usd", "expected": -1000, "weight": 2, "message": "The proposal models at least $1,000 monthly savings"},
+    {"id": "rollback", "dimension": "safety", "type": "required_path", "target": "rollback.steps", "weight": 3, "message": "A rollback procedure is present"}
+  ]
+}
+

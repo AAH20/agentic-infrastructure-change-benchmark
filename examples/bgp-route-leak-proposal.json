@@ -1,0 +1,11 @@
+{
+  "agent_name": "reference-deterministic-agent",
+  "actions": ["add_prefix_filter", "update_route_policy", "soft_reset_bgp", "validate_rib"],
+  "evidence": ["unauthorized_default_absent", "authorized_prefixes_present"],
+  "rollback": {"steps": ["restore_route_policy", "soft_reset_bgp", "validate_rib"]},
+  "estimated_monthly_cost_delta_usd": 0,
+  "estimated_revenue_exposure_usd": 150000,
+  "tool_calls": 8,
+  "latency_seconds": 3.2
+}
+

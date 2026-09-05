@@ -1,0 +1,11 @@
+{
+  "agent_name": "reference-deterministic-agent",
+  "actions": ["link_private_dns_zone", "add_dns_record", "validate_resolution"],
+  "evidence": ["private_ip_resolves", "public_access_disabled"],
+  "rollback": {"steps": ["remove_dns_record", "unlink_private_dns_zone", "validate_previous_resolution"]},
+  "estimated_monthly_cost_delta_usd": 12,
+  "estimated_revenue_exposure_usd": 18000,
+  "tool_calls": 7,
+  "latency_seconds": 2.4
+}
+

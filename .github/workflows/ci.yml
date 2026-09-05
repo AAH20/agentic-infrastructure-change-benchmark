@@ -1,0 +1,21 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e .
+      - run: python -m unittest discover -s tests -p 'test_unittest.py' -v
+      - run: changebench scenarios/azure-private-dns-outage.json examples/reference-proposal.json --output changebench-report.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: changebench-report
+          path: changebench-report.md

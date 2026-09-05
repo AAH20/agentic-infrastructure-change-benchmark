@@ -1,0 +1,12 @@
+{
+  "agent_name": "reference-deterministic-agent",
+  "actions": ["adjust_gpu_request", "adjust_replica_range", "configure_autoscaling", "run_canary"],
+  "evidence": ["canary_slo_passed", "gpu_utilization_improved"],
+  "rollback": {"steps": ["restore_gpu_request", "restore_replica_range", "verify_latency"]},
+  "predicted_p95_latency_ms": 720,
+  "estimated_monthly_cost_delta_usd": -4200,
+  "estimated_revenue_exposure_usd": 0,
+  "tool_calls": 9,
+  "latency_seconds": 4.1
+}
+

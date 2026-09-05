@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentic-infrastructure-change-benchmark"
+version = "0.1.0"
+description = "Deterministic evaluation of AI-proposed cloud, Kubernetes, and network changes"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Apache-2.0"}
+authors = [{name = "Ahmed Hassan"}]
+keywords = ["agentic-ai", "infrastructure-as-code", "terraform", "kubernetes", "network-automation", "finops", "devops", "sre"]
+
+[project.scripts]
+changebench = "changebench.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+

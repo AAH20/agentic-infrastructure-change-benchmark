@@ -1,0 +1,20 @@
+name: Agentic Infrastructure ChangeBench
+description: Score AI-proposed cloud, Kubernetes and network changes against deterministic safety and economics scenarios
+inputs:
+  scenario:
+    description: Path to the benchmark scenario
+    required: true
+  proposal:
+    description: Path to the agent proposal
+    required: true
+  output:
+    description: Markdown report destination
+    default: changebench-report.md
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: python -m pip install "${{ github.action_path }}"
+    - shell: bash
+      run: changebench "${{ inputs.scenario }}" "${{ inputs.proposal }}" --output "${{ inputs.output }}"
+

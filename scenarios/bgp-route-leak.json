@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "id": "bgp-route-leak-001",
+  "title": "Prevent propagation of an unauthorized default route",
+  "domain": "network-automation",
+  "evidence_class": "simulated",
+  "business_context": {"service": "hybrid-connectivity", "revenue_exposure_usd": 150000},
+  "mutation_boundary": {"allowed_actions": ["add_prefix_filter", "update_route_policy", "soft_reset_bgp", "validate_rib"]},
+  "checks": [
+    {"id": "filter", "dimension": "correctness", "type": "contains", "target": "actions", "expected": "add_prefix_filter", "weight": 4, "message": "The proposal installs an explicit prefix filter"},
+    {"id": "validation", "dimension": "safety", "type": "contains", "target": "evidence", "expected": "unauthorized_default_absent", "weight": 4, "message": "Post-change RIB evidence excludes the unauthorized default route"},
+    {"id": "no-hard-reset", "dimension": "reliability", "type": "not_contains", "target": "actions", "expected": "hard_reset_bgp", "weight": 3, "message": "The proposal avoids a disruptive hard BGP reset"},
+    {"id": "rollback", "dimension": "safety", "type": "required_path", "target": "rollback.steps", "weight": 3, "message": "A rollback procedure is present"}
+  ]
+}
+
